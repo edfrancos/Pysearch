@@ -9,4 +9,4 @@ Ingrantes:
 Objetivo: Programa que permita que el usuario acceda y conozca fácilmente la programación y catálogo de contenido de un canal de televisión dando lugar a la optimización de su propio tiempo haciendo útil dicha actividad. 
 
 Información basica para ejecutar el programa:
-- Requiere de Python para que se ejecute
+- Requiere de Python para que se ejecute,  preferiblemente 3.7 en adelante.
