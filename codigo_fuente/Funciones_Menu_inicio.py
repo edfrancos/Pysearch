@@ -8,6 +8,10 @@ from Funciones_Menu_principal import*
 
 class Funciones_inicio(QMainWindow):
     def __init__(self):
+        """Funcion que declara la clase general y establece un estado inicial de los objetos a utilizar en el programa
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         super().__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
@@ -31,8 +35,10 @@ class Funciones_inicio(QMainWindow):
         self.show()
 
     def registrar(self):
-        """Recibe la informacion guardada en los objetos de nombre txt_nombre, txt_username, txt_clve y txt_clave_confirm pertenecientes
-        a la clase Ui_Dialog, ."""
+        """Recibe la informacion guardada en los objetos de nombre txt_nombre, txt_username, txt_clve y txt_clave_confirm pertenecientes a la clase Ui_Dialog.
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         nombre_usuario = self.ui.txt_nombre.text().strip()
         nombre_username = self.ui.txt_username.text().strip()
         clave = self.ui.txt_clave.text()
@@ -100,6 +106,10 @@ class Funciones_inicio(QMainWindow):
         return len(resultado) > 0
 
     def control_login(self):
+        """ Contiene el control de los logeos para omitir errores en la base de datos
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
             username = self.ui.txt_login_username.text()
             clave = self.ui.txt_login_clave.text()
             self.conexion = sqlite3.connect("DB1.db")
@@ -133,11 +143,19 @@ class Funciones_inicio(QMainWindow):
                 self.advertencias.exec_()
 
     def log_in(self, user, contra):
+        """Permite el logeo de el usuario al iniciar
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         sql = '''SELECT * FROM usuarios WHERE Username = '{}' AND Contraseña = '{}' '''.format(user,contra)
         cur =self.conexion.cursor()
         resultado_1 = cur.execute(sql).fetchall()
         return len(resultado_1) > 0
     def fav_caracol(self):
+        """reconoce si seleccionó como favorito a Caracol
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         if self.ui.btn_caracol.isChecked() == True:
             self.ui.btn_check_caracol.setVisible(True)
             self.caracol = True
@@ -145,6 +163,10 @@ class Funciones_inicio(QMainWindow):
             self.ui.btn_check_caracol.setVisible(False)
             self.caracol = False
     def fav_cartoon(self):
+        """reconoce si seleccionó como favorito a Cartoon
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         if self.ui.btn_cartoon.isChecked() == True:
             self.ui.btn_check_cartoon.setVisible(True)
             self.cartoon = True
@@ -152,6 +174,10 @@ class Funciones_inicio(QMainWindow):
             self.ui.btn_check_cartoon.setVisible(False)
             self.cartoon = False
     def fav_fox(self):
+        """reconoce si seleccionó como favorito a Fox
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         if self.ui.btn_fox.isChecked() == True:
             self.ui.btn_check_fox.setVisible(True)
             self.fox = True
@@ -159,6 +185,10 @@ class Funciones_inicio(QMainWindow):
             self.ui.btn_check_fox.setVisible(False)
             self.fox = False
     def fav_rcn(self):
+        """reconoce si seleccionó como favorito a RCN
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         if self.ui.btn_rcn.isChecked() == True:
             self.ui.btn_check_rcn.setVisible(True)
             self.rcn = True
@@ -166,6 +196,10 @@ class Funciones_inicio(QMainWindow):
             self.ui.btn_check_rcn.setVisible(False)
             self.rcn = False
     def user_favs(self):
+        """reconoce los programas en general seleccionados como favoritos
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         nombre_username = self.ui.txt_username.text()
         print("llegue")
         if self.caracol:
