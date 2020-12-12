@@ -23,5 +23,5 @@ Información basica para ejecutar el programa:
 Imagenes:
 ![Busqueda por canales](Proyecto_impant1.png)
 ![Sección Favoritos](Proyecto_impant2.jpg)
-![Registro](Proyecto_impant3.png)
-![Ingresar y Registrar](Proyecto_impant4.png)
+![Registro](Proyecto_impant3.jpg)
+![Ingresar y Registrar](Proyecto_impant4.jpeg)
