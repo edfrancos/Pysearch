@@ -1,4 +1,4 @@
-Nombre del proyecto: Pysearch V1.1
+Nombre del proyecto: Pysearch V1.2
 
 Grupo #2
 Ingrantes:
