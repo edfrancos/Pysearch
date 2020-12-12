@@ -10,13 +10,13 @@ from Funciones_Menu_inicio import *
 from sqlite3 import Error
 from dicc_program import General_Canal_Dic
 
-"""
-Este script contiene toda la funcionalidad de ejecucon de la ventana principal, por ello se relaciona directamente
-con el script Funciones_Menu_inicio, adicionalmente se relaciona directamente con los valores guardados en la base 
-de datos que contiene la informacion de los usuarios.
-"""
+
 class Menu_principal(QMainWindow):
     def __init__(self):
+        """contiene toda la funcionalidad de ejecucion de la ventana principal, por ello se relaciona directamente con el script Funciones_Menu_inicio, adicionalmente se relaciona directamente con los valores guardados en la base de datos que contiene la informacion de los usuarios.
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -46,10 +46,11 @@ class Menu_principal(QMainWindow):
         self.ui.btn_canal_4.clicked.connect(self.rcn)
         self.show()
 
-    """Se conecta con la base de datos para conocer el usuario activo, evalua 
-    los programas favoritos de este y los almacena en una lista la cual es utilziada para seleccionar
-    el icono de los canales favoritos"""
     def cambiar_botones(self):
+        """Se conecta con la base de datos para conocer el usuario activo, evalua los programas favoritos de este y los almacena en una lista la cual es utilizada para seleccionar el icono de los canales favoritos
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         self.ui.btn_fav_1.setVisible(False)
         self.ui.btn_fav_2.setVisible(False)
         self.ui.btn_fav_3.setVisible(False)
@@ -118,12 +119,12 @@ class Menu_principal(QMainWindow):
                     c += 1
             else:
                 c += 1
-    """" 
-    anterior y siguiente son funciones que permiten el desplazamiento del slider de la ventan principal
-    permitiendo asi que este siga un flujo continuo y uniforme
-    """
 
     def anterior(self):
+        """"función que permite el desplazamiento del slider de la ventan principal hacia la izquierda permitiendo asi que este siga un flujo continuo y uniforme de los banners
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         self.ui.frm_slide_imagen_slider_2.setGeometry(QtCore.QRect(840, 0, 840, 189))
         if self.x != 1:
             self.x -= 1
@@ -147,6 +148,10 @@ class Menu_principal(QMainWindow):
         self.ui.frm_slide_imagen_slider_1.setGeometry(QtCore.QRect(0, 0, 840, 189))
         print(self.x)
     def siguiente(self):
+        """"función que permite el desplazamiento del slider de la ventan principal hacia la derecha permitiendo asi que este siga un flujo continuo y uniforme de los banners
+        ::param Variable self: Variable que es un objeto
+        :return: None
+        """
         self.ui.frm_slide_imagen_slider_3.setGeometry(QtCore.QRect(-840, 0, 840, 189))
         if self.x != 9:
             self.ui.frm_slide_imagen_slider_1.setStyleSheet("background-image : url(banner_{}.jpg);".format(self.x))
@@ -170,11 +175,11 @@ class Menu_principal(QMainWindow):
         self.ui.frm_slide_imagen_slider_2.setGeometry(QtCore.QRect(840, 0, 840, 189))
         self.ui.frm_slide_imagen_slider_1.setGeometry(QtCore.QRect(0, 0, 840, 189))
 
-    """ Las funciones llamadas redirigir_fav_ redirigen al usuario a la pagina de canales, donde 
-    inmediatamente es presentada la programacion dada por dichos canales. Se realizaron 4 
-    funciones debido a que existen 4 botones de favoritos; sin embargo la visibilidad y utilidad
-    de los 4 depende del usuario y sus gustos"""
     def redirigir_fav_1(self):
+        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 1
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_1 == "caracol":
             self.caracol()
@@ -185,6 +190,10 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_1== "rcn":
             self.rcn()
     def redirigir_fav_2(self):
+        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 2
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         self.ui.sta
         if self.canal_fav_2 == "caracol":
@@ -196,6 +205,10 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_2 == "rcn":
             self.rcn()
     def redirigir_fav_3(self):
+        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 3
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_3 == "caracol":
             self.caracol()
@@ -206,6 +219,10 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_3 == "rcn":
             self.rcn()
     def redirigir_fav_4(self):
+        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 4
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_4 == "caracol":
             self.caracol()
@@ -215,10 +232,12 @@ class Menu_principal(QMainWindow):
             self.Fox()
         elif self.canal_fav_4 == "rcn":
             self.rcn()
-    """redirige al usuario a el panel de busqueda especifico de cada uno de los programas recomendados
-    presentados en el slider de la pagina inicial.
-    """
+
     def seleccion_inicial(self):
+        """redirige al usuario a el panel de busqueda especifico de cada uno de los programas recomendados presentados en el slider de la pagina inicial.
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         programa = self.x
         busqueda = self.programas_recomendados[programa-1]
         if busqueda in Dicc_Caracol:
@@ -269,9 +288,12 @@ class Menu_principal(QMainWindow):
             self.ui.lbl_busqueda_titulo.setText(busqueda)
             self.ui.lbl_busqueda_tipo.setText(info[2])
             self.ui.lbl_busqueda_sinopsis.setText(info[3])
-    """las funciones caracol, cartooon, fox y rcn generan la tabla donde se presenta la respectiva 
-    tabla que contiene los canales presentados en dicho canal, junto con su fecha de emicion y hora de imicion"""
+
     def caracol(self):
+        """genera la tabla de caracol que contiene los canales presentados en dicho canal, junto con su fecha y hora de emicion
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         fila = 0
         columna=0
         print(Dicc_Caracol)
@@ -288,6 +310,10 @@ class Menu_principal(QMainWindow):
                 columna += 1
             fila+=1
     def cartoon(self):
+        """genera la tabla de cartoon que contiene los canales presentados en dicho canal, junto con su fecha y hora de emicion
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         fila = 0
         columna=0
         for programa in Dicc_CN:
@@ -303,6 +329,10 @@ class Menu_principal(QMainWindow):
                 columna += 1
             fila+=1
     def fox(self):
+        """genera la tabla de fox que contiene los canales presentados en dicho canal, junto con su fecha y hora de emicion
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         fila = 0
         columna=0
         for programa in Dicc_Fox:
@@ -318,6 +348,10 @@ class Menu_principal(QMainWindow):
                 columna += 1
             fila+=1
     def rcn(self):
+        """genera la tabla de rcn que contiene los canales presentados en dicho canal, junto con su fecha y hora de emicion
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         fila = 0
         columna=0
         for programa in Dicc_RCN:
@@ -332,12 +366,13 @@ class Menu_principal(QMainWindow):
                 self.ui.tbl_prograamacion.setItem(fila, 2, celda_3)
                 columna += 1
             fila+=1
-    """"
-    La funcion busqueda es el motor de busqueda completo de todo el programa, ya uqe en este se evaluan los 
-    parametros ingresados en el panel de busqueda y los relaciona con los datos guardados en los diccionarios
-    que contienen la informacion respectiva a la programacion de cada canal
-    """
+    
     def busqueda(self):
+        """"
+        es el motor de busqueda completo de todo el programa, ya que en este se evaluan los parametros ingresados en el panel de busqueda y los relaciona con los datos guardados en los diccionarios que contienen la informacion respectiva a la programacion de cada canal
+        :param Variable self: Variable que es un objeto
+        :return: None
+        """
         busqueda = self.ui.txt_buscar_inicial.text().strip().lower()
         if busqueda == "caracol":
             self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
