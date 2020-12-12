@@ -1,12 +1,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-""""
-Este script contiene la clase principal y padre de todo el diseño grafico de la interfaz en su 
-apartado principal, por ello este script es practicamente infuncional en este estado debido a que 
-todo los botones, paginas, etiquedas y demas widgets no tienen asignado un evento especifico.
-Cabe destacar que dichos eventos de funcionalidad se desarrollan el script Funciones_Menu_principal.
-"""
+
 
 class Ui_MainWindow(object):
+    """"
+    Este script contiene la clase principal y padre de todo el diseño grafico de la interfaz en su 
+    apartado principal, por ello este script es practicamente infuncional en este estado debido a que 
+    todo los botones, paginas, etiquedas y demas widgets no tienen asignado un evento especifico.
+    Cabe destacar que dichos eventos de funcionalidad se desarrollan el script Funciones_Menu_principal.
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(897, 602)
