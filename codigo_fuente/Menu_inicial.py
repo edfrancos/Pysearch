@@ -1,12 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-""""
-Este script contiene la clase principal y padre de todo el diseño grafico de la interfaz en su 
-apartado inicial, por ello este script es practicamente infuncional en este estado,todo esto debido a que 
-todo los botones, paginas, etiquetas y demas widgets no tienen asignado un evento especifico.
-Cabe destacar que dichos eventos de funcionalidad se desarrollan el script Funciones_Menu_Inicial.
-"""
+
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
+        """"Este script contiene la clase principal y padre de todo el diseño grafico de la interfaz en su apartado inicial, por ello este script es practicamente infuncional en este estado,todo esto debido a que todo los botones, paginas, etiquetas y demas widgets no tienen asignado un evento especifico.Cabe destacar que dichos eventos de funcionalidad se desarrollan el script Funciones_Menu_Inicial.
+        :param Variable self: Variable es un objeto
+        :param Clase Dialog: Dialog es una clase
+        :return: None
+        """
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 550)
         Dialog.setMinimumSize(QtCore.QSize(400, 550))
