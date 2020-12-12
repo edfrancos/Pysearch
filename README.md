@@ -20,4 +20,8 @@ Información basica para ejecutar el programa:
 - Requiere de Python para que se ejecute,  preferiblemente 3.7 en adelante.
 - Se deben ejecutar los comandos descritos en "requirements.txt"
 
-
+Imagenes:
+![Busqueda por canales](Proyecto_impant1.png)
+![Sección Favoritos](Proyecto_impant2.jpg)
+![Registro](Proyecto_impant3.png)
+![Ingresar y Registrar](Proyecto_impant4.png)
