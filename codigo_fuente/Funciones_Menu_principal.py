@@ -14,7 +14,7 @@ from dicc_program import General_Canal_Dic
 class Menu_principal(QMainWindow):
     def __init__(self):
         """ declara todos los botones a utilizar y sus propiedades
-        :param None
+        :param None:
         :return: None
         """
         super().__init__()
@@ -45,8 +45,8 @@ class Menu_principal(QMainWindow):
         self.show()
 
     def cambiar_botones(self):
-        """ determina los favoritos para luego mostrarlos en la pantalla principal
-        :param None
+        """ determina los canalesfavoritos para luego mostrarlos en la pantalla principal
+        :param None:
         :return: None
         """
         self.ui.btn_fav_1.setVisible(False)
@@ -118,6 +118,8 @@ class Menu_principal(QMainWindow):
             else:
                 c += 1
     def anterior(self):
+        """ 
+        """
         self.ui.frm_slide_imagen_slider_2.setGeometry(QtCore.QRect(840, 0, 840, 189))
         if self.x != 1:
             self.x -= 1
