@@ -21,6 +21,8 @@ Información basica para ejecutar el programa:
 - Se deben ejecutar los comandos descritos en "requirements.txt"
 
 Imagenes:
+
+
 ![Busqueda por canales](Proyecto_impant1.png)
 ![Sección Favoritos](Proyecto_impant2.jpg)
 ![Registro](Proyecto_impant3.jpg)
