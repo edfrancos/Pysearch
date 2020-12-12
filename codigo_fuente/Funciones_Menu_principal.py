@@ -45,7 +45,7 @@ class Menu_principal(QMainWindow):
         self.show()
 
     def cambiar_botones(self):
-        """ determina los canalesfavoritos para luego mostrarlos en la pantalla principal
+        """ determina los canales favoritos para luego mostrarlos en la pantalla principal
         :param None:
         :return: None
         """
@@ -118,7 +118,9 @@ class Menu_principal(QMainWindow):
             else:
                 c += 1
     def anterior(self):
-        """ 
+        """ boton izquierdo de los banners para volver a la imagen anterior
+        :param None:
+        :return: None
         """
         self.ui.frm_slide_imagen_slider_2.setGeometry(QtCore.QRect(840, 0, 840, 189))
         if self.x != 1:
@@ -143,6 +145,10 @@ class Menu_principal(QMainWindow):
         self.ui.frm_slide_imagen_slider_1.setGeometry(QtCore.QRect(0, 0, 840, 189))
         print(self.x)
     def siguiente(self):
+        """ boton derecho de los banners para avanzar a la siguiente imagen
+        :param None:
+        :return: None
+        """
         self.ui.frm_slide_imagen_slider_3.setGeometry(QtCore.QRect(-840, 0, 840, 189))
         if self.x != 9:
             self.ui.frm_slide_imagen_slider_1.setStyleSheet("background-image : url(banner_{}.jpg);".format(self.x))
@@ -167,6 +173,10 @@ class Menu_principal(QMainWindow):
         self.ui.frm_slide_imagen_slider_1.setGeometry(QtCore.QRect(0, 0, 840, 189))
 
     def redirigir_fav_1(self):
+        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 1
+        :param None:
+        :return: None
+        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_1 == "caracol":
             self.caracol()
@@ -177,6 +187,10 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_1== "rcn":
             self.rcn()
     def redirigir_fav_2(self):
+        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 2
+        :param None:
+        :return: None
+        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_2 == "caracol":
             self.caracol()
@@ -187,6 +201,10 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_2 == "rcn":
             self.rcn()
     def redirigir_fav_3(self):
+        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 3
+        :param None:
+        :return: None
+        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_3 == "caracol":
             self.caracol()
@@ -197,6 +215,10 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_3 == "rcn":
             self.rcn()
     def redirigir_fav_4(self):
+        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 4
+        :param None:
+        :return: None
+        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_4 == "caracol":
             self.caracol()
