@@ -5,13 +5,14 @@ from Menu_inicial import *
 from sqlite3 import Error
 import re
 from Funciones_Menu_principal import*
+"""
+Este script contiene toda la funcionalidad de ejecucion de la ventana principal, por ello se relaciona directamente
+con el script Funciones_Menu_principal, adicionalmente se relaciona directamente con los valores guardados en la base 
+de datos que contiene ya que este es el encargado de guardar toda la informacion de la base de datos.
+"""
 
 class Funciones_inicio(QMainWindow):
     def __init__(self):
-        """Funcion que declara la clase general y establece un estado inicial de los objetos a utilizar en el programa
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
         super().__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
@@ -35,10 +36,11 @@ class Funciones_inicio(QMainWindow):
         self.show()
 
     def registrar(self):
-        """Recibe la informacion guardada en los objetos de nombre txt_nombre, txt_username, txt_clve y txt_clave_confirm pertenecientes a la clase Ui_Dialog.
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
+        """Recibe la informacion guardada en los objetos de nombre txt_nombre, txt_username,
+            txt_clve y txt_clave_confirm pertenecientes a la clase padre del programa, esta funcion
+             evalua parametros que son importantes a la hora de registrar tales como evaluar patrones de
+             tipografia, y relacionarse con funciones secundarias utiles para el optimo alamcenamiento en la
+             base de datos."""
         nombre_usuario = self.ui.txt_nombre.text().strip()
         nombre_username = self.ui.txt_username.text().strip()
         clave = self.ui.txt_clave.text()
@@ -104,12 +106,12 @@ class Funciones_inicio(QMainWindow):
         cur = self.conexion.cursor()
         resultado = cur.execute(sql, (user,)).fetchall()
         return len(resultado) > 0
-
+    """
+    Control_login es como la cerradura donde se ingresa la llave para abir la puerta al inicio de la aplicacion,
+    todo esto debido a que esta es la que recibe losdatos de username y contraseña brindados por el usaurio
+    y evalua si son correctos o incorrectos
+    """
     def control_login(self):
-        """ Contiene el control de los logeos para omitir errores en la base de datos
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
             username = self.ui.txt_login_username.text()
             clave = self.ui.txt_login_clave.text()
             self.conexion = sqlite3.connect("DB1.db")
@@ -142,20 +144,19 @@ class Funciones_inicio(QMainWindow):
                 self.advertencias.setWindowTitle("Important-TypeError")
                 self.advertencias.exec_()
 
+    """log_in es una funcion secundaria de tipo recive-retorna, la cual es la encargada de 
+    evaluar si los datos ingresados y evaluados en la funcion control_login son correctos, retornando 
+    un valor booleano que se utiliza en la funcion control_login
+    """
     def log_in(self, user, contra):
-        """Permite el logeo de el usuario al iniciar
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
         sql = '''SELECT * FROM usuarios WHERE Username = '{}' AND Contraseña = '{}' '''.format(user,contra)
         cur =self.conexion.cursor()
         resultado_1 = cur.execute(sql).fetchall()
         return len(resultado_1) > 0
+    """las funciones fav_ son las encargadas de almacenar los estados de las variables favoritas 
+    respectivas a los programas seleccionadas como favoritos por el usaurio"""
+
     def fav_caracol(self):
-        """reconoce si seleccionó como favorito a Caracol
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
         if self.ui.btn_caracol.isChecked() == True:
             self.ui.btn_check_caracol.setVisible(True)
             self.caracol = True
@@ -163,10 +164,6 @@ class Funciones_inicio(QMainWindow):
             self.ui.btn_check_caracol.setVisible(False)
             self.caracol = False
     def fav_cartoon(self):
-        """reconoce si seleccionó como favorito a Cartoon
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
         if self.ui.btn_cartoon.isChecked() == True:
             self.ui.btn_check_cartoon.setVisible(True)
             self.cartoon = True
@@ -174,10 +171,6 @@ class Funciones_inicio(QMainWindow):
             self.ui.btn_check_cartoon.setVisible(False)
             self.cartoon = False
     def fav_fox(self):
-        """reconoce si seleccionó como favorito a Fox
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
         if self.ui.btn_fox.isChecked() == True:
             self.ui.btn_check_fox.setVisible(True)
             self.fox = True
@@ -185,21 +178,18 @@ class Funciones_inicio(QMainWindow):
             self.ui.btn_check_fox.setVisible(False)
             self.fox = False
     def fav_rcn(self):
-        """reconoce si seleccionó como favorito a RCN
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
         if self.ui.btn_rcn.isChecked() == True:
             self.ui.btn_check_rcn.setVisible(True)
             self.rcn = True
         else:
             self.ui.btn_check_rcn.setVisible(False)
             self.rcn = False
+    """"
+    User_favs es la funcion encargada de evaluar los cambios realizados en las variables favoritas y asi 
+    guardarlos en la tabla de la base de datos especailizada en el almacenamiento de datos de los favoritos
+    correspondientes a cada usuario
+    """
     def user_favs(self):
-        """reconoce los programas en general seleccionados como favoritos
-        :param Variable self: Variable que es un objeto
-        :return: None
-        """
         nombre_username = self.ui.txt_username.text()
         print("llegue")
         if self.caracol:
