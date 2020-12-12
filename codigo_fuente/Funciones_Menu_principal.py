@@ -2,7 +2,7 @@ import sys
 import sqlite3
 from urllib.request import urlopen
 import re
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QMainWindow, QGraphicsPixmapItem, QGraphicsScene, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QMainWindow, QGraphicsPixmapItem, QGraphicsScene, QTableWidgetItem, QStackedWidget
 from PyQt5.QtCore import QPropertyAnimation, QRect, QAbstractAnimation
 from Menu_principal import *
 from dicc_program import *
@@ -10,13 +10,13 @@ from Funciones_Menu_inicio import *
 from sqlite3 import Error
 from dicc_program import General_Canal_Dic
 
-
+"""
+Este script contiene toda la funcionalidad de ejecucon de la ventana principal, por ello se relaciona directamente
+con el script Funciones_Menu_inicio, adicionalmente se relaciona directamente con los valores guardados en la base 
+de datos que contiene la informacion de los usuarios.
+"""
 class Menu_principal(QMainWindow):
     def __init__(self):
-        """ declara todos los botones a utilizar y sus propiedades
-        :param None:
-        :return: None
-        """
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -26,13 +26,15 @@ class Menu_principal(QMainWindow):
         self.ui.tbl_prograamacion.setColumnWidth(1, 300)
         self.ui.tbl_prograamacion.setColumnWidth(2, 150)
         self.x = 1
+        self.programas_recomendados=['Betty, la fea','Dragon ball super','Escandalosos','Futurama',"Pasión de Gavilanes","Pedro el escamoso","Spider-Man: lejos de casa","The Suso's Show",'Los Simpson']
         self.cambiar_botones()
-        self.ui.frm_slide_imagen_slider_1.setStyleSheet("background: url(:/slider/banner_{}.jpg)".format(self.x))
+        self.ui.frm_slide_imagen_slider_1.setStyleSheet("background: url(:/slider/banner_1.jpg)")
         self.ui.btn_slider_anterior.clicked.connect(self.anterior)
         self.ui.btn_slider_siguiente.clicked.connect(self.siguiente)
+        self.ui.btn_slide_frame.clicked.connect(self.seleccion_inicial)
         self.ui.btn_inicio_inicio.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.pg_inicial))
         self.ui.btn_inicio_peliculas.clicked.connect(lambda: print(General_Canal_Dic))
-        self.ui.btn_inicio_canales.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales))
+        self.ui.btn_inicio_canales.clicked.connect(lambda: self.ui.QstackedWidget.setCurrentWidget(self.ui.pg_canales))
         self.ui.btn_search_inicial.clicked.connect(self.busqueda)
         self.ui.btn_fav_1.clicked.connect(self.redirigir_fav_1)
         self.ui.btn_fav_2.clicked.connect(self.redirigir_fav_2)
@@ -40,15 +42,14 @@ class Menu_principal(QMainWindow):
         self.ui.btn_fav_4.clicked.connect(self.redirigir_fav_4)
         self.ui.btn_canal_1.clicked.connect(self.caracol)
         self.ui.btn_canal_2.clicked.connect(self.cartoon)
-        self.ui.btn_canal_3.clicked.connect(self.Fox)
+        self.ui.btn_canal_3.clicked.connect(self.fox)
         self.ui.btn_canal_4.clicked.connect(self.rcn)
         self.show()
 
+    """Se conecta con la base de datos para conocer el usuario activo, evalua 
+    los programas favoritos de este y los almacena en una lista la cual es utilziada para seleccionar
+    el icono de los canales favoritos"""
     def cambiar_botones(self):
-        """ determina los canales favoritos para luego mostrarlos en la pantalla principal
-        :param None:
-        :return: None
-        """
         self.ui.btn_fav_1.setVisible(False)
         self.ui.btn_fav_2.setVisible(False)
         self.ui.btn_fav_3.setVisible(False)
@@ -117,11 +118,12 @@ class Menu_principal(QMainWindow):
                     c += 1
             else:
                 c += 1
+    """" 
+    anterior y siguiente son funciones que permiten el desplazamiento del slider de la ventan principal
+    permitiendo asi que este siga un flujo continuo y uniforme
+    """
+
     def anterior(self):
-        """ boton izquierdo de los banners para volver a la imagen anterior
-        :param None:
-        :return: None
-        """
         self.ui.frm_slide_imagen_slider_2.setGeometry(QtCore.QRect(840, 0, 840, 189))
         if self.x != 1:
             self.x -= 1
@@ -145,10 +147,6 @@ class Menu_principal(QMainWindow):
         self.ui.frm_slide_imagen_slider_1.setGeometry(QtCore.QRect(0, 0, 840, 189))
         print(self.x)
     def siguiente(self):
-        """ boton derecho de los banners para avanzar a la siguiente imagen
-        :param None:
-        :return: None
-        """
         self.ui.frm_slide_imagen_slider_3.setGeometry(QtCore.QRect(-840, 0, 840, 189))
         if self.x != 9:
             self.ui.frm_slide_imagen_slider_1.setStyleSheet("background-image : url(banner_{}.jpg);".format(self.x))
@@ -172,11 +170,11 @@ class Menu_principal(QMainWindow):
         self.ui.frm_slide_imagen_slider_2.setGeometry(QtCore.QRect(840, 0, 840, 189))
         self.ui.frm_slide_imagen_slider_1.setGeometry(QtCore.QRect(0, 0, 840, 189))
 
+    """ Las funciones llamadas redirigir_fav_ redirigen al usuario a la pagina de canales, donde 
+    inmediatamente es presentada la programacion dada por dichos canales. Se realizaron 4 
+    funciones debido a que existen 4 botones de favoritos; sin embargo la visibilidad y utilidad
+    de los 4 depende del usuario y sus gustos"""
     def redirigir_fav_1(self):
-        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 1
-        :param None:
-        :return: None
-        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_1 == "caracol":
             self.caracol()
@@ -187,11 +185,8 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_1== "rcn":
             self.rcn()
     def redirigir_fav_2(self):
-        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 2
-        :param None:
-        :return: None
-        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
+        self.ui.sta
         if self.canal_fav_2 == "caracol":
             self.caracol()
         elif self.canal_fav_2 == "cartoon":
@@ -201,10 +196,6 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_2 == "rcn":
             self.rcn()
     def redirigir_fav_3(self):
-        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 3
-        :param None:
-        :return: None
-        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_3 == "caracol":
             self.caracol()
@@ -215,10 +206,6 @@ class Menu_principal(QMainWindow):
         elif self.canal_fav_3 == "rcn":
             self.rcn()
     def redirigir_fav_4(self):
-        """ Muestra los programas según el canal seleccionado anteriormente como favorito en la posición 4
-        :param None:
-        :return: None
-        """
         self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
         if self.canal_fav_4 == "caracol":
             self.caracol()
@@ -228,9 +215,62 @@ class Menu_principal(QMainWindow):
             self.Fox()
         elif self.canal_fav_4 == "rcn":
             self.rcn()
-
+    """redirige al usuario a el panel de busqueda especifico de cada uno de los programas recomendados
+    presentados en el slider de la pagina inicial.
+    """
     def seleccion_inicial(self):
-        print("hello world")
+        programa = self.x
+        busqueda = self.programas_recomendados[programa-1]
+        if busqueda in Dicc_Caracol:
+            self.ui.stackedWidget.setCurrentWidget(self.ui.pg_busqueda)
+            info = Dicc_Caracol.get(busqueda)
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(":/icons/Icon_caracol.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.ui.btn_busqueda_canal.setIcon(icon)
+            self.ui.lbl_busqueda_dias_emi.setText(info[0])
+            self.ui.lbl_busqueda_horas_emi.setText(info[1])
+            self.ui.lbl_busqueda_canal_emi.setText("Caracol")
+            self.ui.lbl_busqueda_titulo.setText(busqueda)
+            self.ui.lbl_busqueda_tipo.setText(info[2])
+            self.ui.lbl_busqueda_sinopsis.setText(info[3])
+        elif busqueda in Dicc_CN:
+            info= Dicc_CN.get(busqueda)
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(":/icons/Icon_cartoon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.ui.stackedWidget.setCurrentWidget(self.ui.pg_busqueda)
+            self.ui.btn_busqueda_canal.setIcon(icon)
+            self.ui.lbl_busqueda_dias_emi.setText(info[0])
+            self.ui.lbl_busqueda_horas_emi.setText(info[1])
+            self.ui.lbl_busqueda_canal_emi.setText("Carton Network")
+            self.ui.lbl_busqueda_titulo.setText(busqueda)
+            self.ui.lbl_busqueda_tipo.setText(info[2])
+            self.ui.lbl_busqueda_sinopsis.setText(info[3])
+        elif busqueda in Dicc_RCN:
+            info = Dicc_RCN.get(busqueda)
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(":/icons/Icon_rcn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.ui.stackedWidget.setCurrentWidget(self.ui.pg_busqueda)
+            self.ui.btn_busqueda_canal.setIcon(icon)
+            self.ui.lbl_busqueda_dias_emi.setText(info[0])
+            self.ui.lbl_busqueda_horas_emi.setText(info[1])
+            self.ui.lbl_busqueda_canal_emi.setText("RCN")
+            self.ui.lbl_busqueda_titulo.setText(busqueda)
+            self.ui.lbl_busqueda_tipo.setText(info[2])
+            self.ui.lbl_busqueda_sinopsis.setText(info[3])
+        elif busqueda in Dicc_Fox:
+            info = Dicc_Fox.get(busqueda)
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(":/icons/Icon_fox.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.ui.stackedWidget.setCurrentWidget(self.ui.pg_busqueda)
+            self.ui.btn_busqueda_canal.setIcon(icon)
+            self.ui.lbl_busqueda_dias_emi.setText(info[0])
+            self.ui.lbl_busqueda_horas_emi.setText(info[1])
+            self.ui.lbl_busqueda_canal_emi.setText("FOX")
+            self.ui.lbl_busqueda_titulo.setText(busqueda)
+            self.ui.lbl_busqueda_tipo.setText(info[2])
+            self.ui.lbl_busqueda_sinopsis.setText(info[3])
+    """las funciones caracol, cartooon, fox y rcn generan la tabla donde se presenta la respectiva 
+    tabla que contiene los canales presentados en dicho canal, junto con su fecha de emicion y hora de imicion"""
     def caracol(self):
         fila = 0
         columna=0
@@ -262,7 +302,7 @@ class Menu_principal(QMainWindow):
                 self.ui.tbl_prograamacion.setItem(fila, 2, celda_3)
                 columna += 1
             fila+=1
-    def Fox(self):
+    def fox(self):
         fila = 0
         columna=0
         for programa in Dicc_Fox:
@@ -294,8 +334,7 @@ class Menu_principal(QMainWindow):
             fila+=1
 
     def busqueda(self):
-        busqueda = self.ui.txt_buscar_inicial.text().strip()
-        busqueda.lower()
+        busqueda = self.ui.txt_buscar_inicial.text().strip().lower()
         if busqueda == "caracol":
             self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
             self.caracol()
@@ -308,7 +347,8 @@ class Menu_principal(QMainWindow):
         elif busqueda == "fox":
             self.ui.stackedWidget.setCurrentWidget(self.ui.pg_canales)
             self.fox()
-        elif busqueda in Dicc_Caracol:
+        busqueda = self.ui.txt_buscar_inicial.text().strip().capitalize()
+        if busqueda in Dicc_Caracol:
             self.ui.stackedWidget.setCurrentWidget(self.ui.pg_busqueda)
             info = Dicc_Caracol.get(busqueda)
             icon = QtGui.QIcon()
