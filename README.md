@@ -19,3 +19,5 @@ Para usar las librerías debe descargar "requirements.txt" y ejecutar en el cmd 
 Información basica para ejecutar el programa:
 - Requiere de Python para que se ejecute,  preferiblemente 3.7 en adelante.
 - Se deben ejecutar los comandos descritos en "requirements.txt"
+
+
