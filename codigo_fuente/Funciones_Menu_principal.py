@@ -332,7 +332,11 @@ class Menu_principal(QMainWindow):
                 self.ui.tbl_prograamacion.setItem(fila, 2, celda_3)
                 columna += 1
             fila+=1
-
+    """"
+    La funcion busqueda es el motor de busqueda completo de todo el programa, ya uqe en este se evaluan los 
+    parametros ingresados en el panel de busqueda y los relaciona con los datos guardados en los diccionarios
+    que contienen la informacion respectiva a la programacion de cada canal
+    """
     def busqueda(self):
         busqueda = self.ui.txt_buscar_inicial.text().strip().lower()
         if busqueda == "caracol":
