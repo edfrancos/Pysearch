@@ -14,7 +14,8 @@ from dicc_program import General_Canal_Dic
 class Menu_principal(QMainWindow):
     def __init__(self):
         """ declara todos los botones a utilizar y sus propiedades
-        :param objeto
+        :param None
+        :return: None
         """
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -45,7 +46,8 @@ class Menu_principal(QMainWindow):
 
     def cambiar_botones(self):
         """ determina los favoritos para luego mostrarlos en la pantalla principal
-        :param obj
+        :param None
+        :return: None
         """
         self.ui.btn_fav_1.setVisible(False)
         self.ui.btn_fav_2.setVisible(False)
